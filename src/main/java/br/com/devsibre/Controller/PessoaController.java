@@ -59,4 +59,9 @@ public class PessoaController {
         Pessoa pessoaAtualizada = pessoaService.atualizar(id, pessoa);
         return pessoaAtualizada;
     }
+
+    @GetMapping("/buscar")
+    public List<Pessoa> buscarPorNome(@RequestParam String nome) {
+        return pessoaService.buscarPorNome(nome);
+    }
 }

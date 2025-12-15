@@ -6,6 +6,7 @@ import br.com.devsibre.Domain.Repository.PessoaRepository;
 import br.com.devsibre.Service.Inteface.PessoaService;
 import br.com.devsibre.error.BusinessException;
 import br.com.devsibre.util.Mensagens;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,15 @@ public class PessoaServiceImpl implements PessoaService {
 
     @Override
     public List<Pessoa> listarTodas() {
-        return pessoaRepository.findAll();
+        return pessoaRepository.findAll(Sort.by(Sort.Direction.ASC, "nome"));
+    }
+
+    @Override
+    public List<Pessoa> buscarPorNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            return pessoaRepository.findAll(Sort.by(Sort.Direction.ASC, "nome"));
+        }
+        return pessoaRepository.findByNomeContainingIgnoreCaseOrderByNomeAsc(nome);
     }
 
     @Override
