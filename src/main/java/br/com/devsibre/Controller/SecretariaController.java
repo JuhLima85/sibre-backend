@@ -70,4 +70,26 @@ public ResponseEntity<Resource> baixarCertificadoMembro() throws IOException {
         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=certificado.pdf")
         .body(pdf);
 }
+
+    @GetMapping("/pdf/pacto")
+    public ResponseEntity<Resource> baixarPactoDeComunhao() throws IOException {
+        ClassPathResource pdf = new ClassPathResource("static/relatorios/pacto_de_comunhao.pdf");
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=pacto.pdf")
+                .body(pdf);
+    }
+
+    @GetMapping("/pdf/boletim")
+    public ResponseEntity<Resource> baixarBoletim() throws IOException {
+        ClassPathResource docx = new ClassPathResource("static/relatorios/modelo_boletim.docx");
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                ))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=modelo_boletim.docx")
+                .body(docx);
+    }
 }
